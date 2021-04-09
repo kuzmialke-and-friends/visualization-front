@@ -23,12 +23,13 @@ const config = {
     THEME_COLOR: manifest.theme_color,
     /** URL to our public API Gateway endpoint */
     URL: isLocal
-      ? `http://localhost:3000/${process.env.SERVERLESS_STAGE || "dev"}`
+      ? `http://localhost:4000/${process.env.SERVERLESS_STAGE || "dev"}`
       : String(process.env.APIGATEWAY_URL),
     /** Where the bundled distribution files (`index.js`, `index.css`) are hosted */
     DIST_URL: isLocal ? "http://localhost:8080" : String(process.env.APP_DIST_URL),
     /** Where the contents of the `public` folder are hosted (might be the same as `config.app.DIST_URL`) */
     PUBLIC_URL: isLocal ? "http://localhost:8080" : String(process.env.APP_PUBLIC_URL),
+    BACKEND_URL: process.env.BACKEND_URL,
   },
 };
 

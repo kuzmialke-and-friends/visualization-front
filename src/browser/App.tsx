@@ -4,20 +4,25 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 import MainPage from "./components/MainPage";
-import ErrorPage from "./components/ErrorPage";
+import { useThunkReducer } from "../server/thunk";
+import FetchThunkContext from "../components/FetchThunkContext";
+import { FetchState } from "../server/fetch";
 
-/**
- * Our Web Application
- */
-const App = () => (
-  <Switch>
-    <Route exact path="/">
-      <MainPage />
-    </Route>
-    <Route>
-      <ErrorPage />
-    </Route>
-  </Switch>
-);
+interface AppProps {
+  fetchState: FetchState;
+}
 
+const App = ({ fetchState }: AppProps) => {
+  const fetchThunk = useThunkReducer(fetchState);
+
+  return (
+    <FetchThunkContext.Provider value={fetchThunk}>
+      <Switch>
+        <Route path="/">
+          <MainPage />
+        </Route>
+      </Switch>
+    </FetchThunkContext.Provider>
+  );
+};
 export default App;

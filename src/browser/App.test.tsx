@@ -7,6 +7,6 @@ jest.mock("../components/ConfigContext");
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<App fetchState={{ fetched: {} }} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

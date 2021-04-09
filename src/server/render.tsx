@@ -8,7 +8,9 @@ import { StaticRouter } from "react-router-dom";
 
 import App from "../browser/App";
 import ConfigContext from "../components/ConfigContext";
+import FetchThunkContext from "../components/FetchThunkContext";
 import config from "./config";
+import { getFetchState } from "./fetch";
 import html from "./html";
 import { Stats } from "./types";
 
@@ -31,7 +33,7 @@ export default async function render(event: APIGatewayEvent): Promise<string> {
   const content = renderToString(
     <ConfigContext.Provider value={config}>
       <StaticRouter basename={config.app.URL} location={event.path}>
-        <App />
+        <App fetchState={getFetchState()} />
       </StaticRouter>
     </ConfigContext.Provider>,
   );

@@ -18,8 +18,10 @@
     }
   },
   "dependencies": {
+    "got": "^11.8.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "@types/babel-core": "^6.25.6",
     "@types/concurrently": "^5.2.1",
     "@types/file-loader": "^4.2.0",
+    "@types/got": "^9.6.11",
     "@types/jest": "^26.0.20",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/prettier": "^2.1.6",

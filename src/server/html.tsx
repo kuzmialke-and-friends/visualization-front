@@ -1,4 +1,5 @@
 import { Config } from "./config";
+import { getFetchState } from "./fetch";
 import { Stats } from "./types";
 
 /**
@@ -18,6 +19,7 @@ const html = ({ stats, content, config }: { stats: Stats; content: string; confi
       <link rel="stylesheet" href="${config.app.DIST_URL}/${stats.css}" />
       <script>
         window.__CONFIG__ = ${JSON.stringify(config)};
+        window.__FETCH_STATE = ${JSON.stringify(getFetchState())}
       </script>
     </head>
     <body>
