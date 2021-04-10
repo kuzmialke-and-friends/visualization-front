@@ -1,7 +1,7 @@
 import React from "react";
 
 import manifest from "../../../public/manifest.json";
-import { Config } from "../../server/config";
+import { Config } from "../../types";
 
 const ConfigContext = React.createContext<Config>({
   app: {

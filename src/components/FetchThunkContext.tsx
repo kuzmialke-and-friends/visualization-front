@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { FetchThunk } from "../server/fetch";
+import { FetchThunk } from "../types";
 
-const FetchThunkContext = createContext<FetchThunk | undefined>(undefined);
+const FetchThunkContext = createContext<FetchThunk>([{ fetched: {} }, async () => {}]);
 
 export default FetchThunkContext;

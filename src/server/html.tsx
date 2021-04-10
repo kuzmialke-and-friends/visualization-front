@@ -1,13 +1,21 @@
-import { Config } from "./config";
-import { getFetchState } from "./fetch";
-import { Stats } from "./types";
-
+import { Config, FetchState, Stats } from "../types";
 /**
  * This HTML file acts as a template that we insert all our generated
  * application code into before sending it to the client as regular HTML.
  * Note we're returning a template string from this function.
  */
-const html = ({ stats, content, config }: { stats: Stats; content: string; config: Config }): string => `<!DOCTYPE html>
+const html = ({
+  stats,
+  content,
+  config,
+  fetchState,
+}: {
+  stats: Stats;
+  content: string;
+  config: Config;
+  fetchState: FetchState;
+}): string =>
+  `<!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="utf-8" />
@@ -19,7 +27,7 @@ const html = ({ stats, content, config }: { stats: Stats; content: string; confi
       <link rel="stylesheet" href="${config.app.DIST_URL}/${stats.css}" />
       <script>
         window.__CONFIG__ = ${JSON.stringify(config)};
-        window.__FETCH_STATE = ${JSON.stringify(getFetchState())}
+        window.__FETCH_STATE__ = ${JSON.stringify(fetchState)}
       </script>
     </head>
     <body>

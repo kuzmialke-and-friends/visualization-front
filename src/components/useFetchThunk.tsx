@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { FetchThunk } from "../server/fetch";
+import { FetchThunk } from "../types";
 import FetchThunkContext from "./FetchThunkContext";
 
 export default function useFetchThunk(): FetchThunk {

@@ -2,6 +2,7 @@
  * Configuration
  */
 import manifest from "../../public/manifest.json";
+import { Config } from "../types/config";
 
 /** Whether we're running on a local desktop or on AWS Lambda */
 const isLocal = process.env.IS_LOCAL || process.env.IS_OFFLINE;
@@ -14,7 +15,7 @@ const isLocal = process.env.IS_LOCAL || process.env.IS_OFFLINE;
  * hook. However, due to this behavior, it is important NOT to expose any sensitive information
  * such as passwords or tokens through the config.
  */
-const config = {
+const config: Config = {
   /** Application Config */
   app: {
     /** Name of the app is loaded from the `manifest.json` */
@@ -29,9 +30,8 @@ const config = {
     DIST_URL: isLocal ? "http://localhost:8080" : String(process.env.APP_DIST_URL),
     /** Where the contents of the `public` folder are hosted (might be the same as `config.app.DIST_URL`) */
     PUBLIC_URL: isLocal ? "http://localhost:8080" : String(process.env.APP_PUBLIC_URL),
-    BACKEND_URL: process.env.BACKEND_URL,
+    BACKEND_URL: String(process.env.BACKEND_URL),
   },
 };
 
-export type Config = typeof config;
 export default config;

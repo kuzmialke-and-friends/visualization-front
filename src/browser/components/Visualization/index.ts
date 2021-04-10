@@ -1,1 +1,1 @@
-export { Visualization as default } from "./Visualization";
+export { VisualizationWithContext as default } from "./Visualization";

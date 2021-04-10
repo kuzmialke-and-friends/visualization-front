@@ -8,14 +8,16 @@ import { StaticRouter } from "react-router-dom";
 
 import App from "../browser/App";
 import ConfigContext from "../components/ConfigContext";
-import FetchThunkContext from "../components/FetchThunkContext";
 import config from "./config";
-import { getFetchState } from "./fetch";
 import html from "./html";
-import { Stats } from "./types";
+import { FetchState, Stats } from "../types";
 
 /** Whether we're running on a local desktop or on AWS Lambda */
 const isLocal = process.env.IS_LOCAL || process.env.IS_OFFLINE;
+
+const initialFetchState: FetchState = {
+  fetched: {},
+};
 
 /**
  * Server-side rendering
@@ -33,9 +35,9 @@ export default async function render(event: APIGatewayEvent): Promise<string> {
   const content = renderToString(
     <ConfigContext.Provider value={config}>
       <StaticRouter basename={config.app.URL} location={event.path}>
-        <App fetchState={getFetchState()} />
+        <App fetchState={initialFetchState} />
       </StaticRouter>
     </ConfigContext.Provider>,
   );
-  return html({ stats, content, config });
+  return html({ stats, content, config, fetchState: initialFetchState });
 }
