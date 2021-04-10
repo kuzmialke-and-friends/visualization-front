@@ -1,5 +1,5 @@
 ---
-service: serverless-react-boilerplate
+service: visualization-front
 configValidationMode: off
 
 provider:
@@ -53,6 +53,8 @@ functions:
           cors: true
 
 custom:
+  serverless-offline:
+    httpPort: 4000
   distBucketUrl:
     us-east-1:
       # us-east-1 uses a different URL format than the other regions

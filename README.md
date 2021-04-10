@@ -226,7 +226,7 @@ The whole application can be deployed with a single command:
 npx sls deploy
 ```
 
-For local testing run the following command and open your web browser at http://localhost:3000/dev (with `dev` being the `stage` name configured in your `serverless.yml`). Static content such as images will be served via the [Webpack DevServer](https://webpack.js.org/configuration/dev-server/) running on http://localhost:8080. Note that the app has to be deployed first before you will be able to run locally.
+For local testing run the following command and open your web browser at http://localhost:43000/dev (with `dev` being the `stage` name configured in your `serverless.yml`). Static content such as images will be served via the [Webpack DevServer](https://webpack.js.org/configuration/dev-server/) running on http://localhost:8080. Note that the app has to be deployed first before you will be able to run locally.
 
 ```sh
 npm start

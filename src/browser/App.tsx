@@ -1,24 +1,31 @@
 import "./App.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 
-import useConfig from "../components/useConfig";
-import logo from "./logo.svg";
+import { Route, Switch } from "react-router-dom";
+import MainPage from "./components/MainPage";
+import { useThunkReducer } from "../server/thunk";
+import FetchThunkContext from "../components/FetchThunkContext";
+import { FetchState } from "../types";
 
-/**
- * Our Web Application
- */
-export default function App() {
-  const config = useConfig();
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to {config.app.TITLE}</h1>
-      </header>
-      <p className="App-intro">
-        To get started, edit <code>src/browser/App.jsx</code> and save to reload.
-      </p>
-    </div>
-  );
+interface AppProps {
+  fetchState: FetchState;
 }
+
+const App = ({ fetchState }: AppProps) => {
+  // useEffect(() => {
+  //   __WEB__ = true;
+  // });
+  const fetchThunk = useThunkReducer(fetchState);
+
+  return (
+    <FetchThunkContext.Provider value={fetchThunk}>
+      <Switch>
+        <Route path="/">
+          <MainPage />
+        </Route>
+      </Switch>
+    </FetchThunkContext.Provider>
+  );
+};
+export default App;

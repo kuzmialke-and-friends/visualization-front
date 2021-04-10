@@ -4,14 +4,14 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": "12"
+          "node": "current"
         }
       }
     ],
     "@babel/preset-typescript",
     "@babel/preset-react"
   ],
-  "plugins": [],
+  "plugins": ["@babel/plugin-transform-runtime"],
   "env": {
     "test": {
       "plugins": []

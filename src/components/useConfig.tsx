@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Config } from "../server/config";
+import { Config } from "../types";
 import ConfigContext from "./ConfigContext";
 
 /**
