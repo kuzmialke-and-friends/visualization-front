@@ -15,9 +15,6 @@ jobs:
       script: npm run test
       env:
         - JOB_NAME=tests
-    - script: npm run lint
-      env:
-        - JOB_NAME=linters
     - stage: deploy
       script: npm run deploy
       env:
