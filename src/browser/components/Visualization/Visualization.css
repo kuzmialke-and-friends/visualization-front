@@ -3,25 +3,6 @@
   background-color: none;
 }
 
-.visualization-button {
-  background-color: #66757f;
-  border: none;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  font-variant-caps: all-petite-caps;
-  font-size: 100%;
-  padding: 0.5rem 2rem;
-  text-align: center;
-  display: inline-block;
-  margin: 0px 2px;
-  cursor: pointer;
-}
-
-.visualization-button:hover {
-  background-color: #778894;
-  color: white;
-}
-
 .visualization-component {
   background-color: #292f33;
   display: flex;
