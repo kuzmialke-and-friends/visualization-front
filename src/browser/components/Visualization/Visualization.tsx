@@ -38,7 +38,7 @@ interface ButtonProps {
 }
 
 const Button = ({ type, showVisualization }: ButtonProps) => (
-  <button onClick={showVisualization} key={type}>
+  <button className="visualizationButton" onClick={showVisualization} key={type}>
     {type}
   </button>
 );
@@ -63,7 +63,7 @@ export const Visualization = ({
           <Button type={type} key={type} showVisualization={() => setVisualizationType(type)} />
         ))}
       </div>
-      {VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}
+      <div className="visualizationBox">{VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}</div>
     </div>
   );
 };
