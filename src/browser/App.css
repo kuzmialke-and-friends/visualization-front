@@ -1,6 +1,15 @@
 .app {
+  background-color: #474545;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  min-height: 100%;
+}
+
+html {
+  background-color: #474545;
+  min-height: 100%;
 }

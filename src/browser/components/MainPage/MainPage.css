@@ -4,6 +4,24 @@
   flex-direction: column;
 }
 
-a {
-  margin: 2px;
+.mainNavMenu {
+  background-color: #292f33;
+}
+
+a:link,
+a:visited {
+  margin: 0px 1.5px;
+  background-color: #66757f;
+  border: none;
+  color: white;
+  font-size: 100%;
+  padding: 1rem 5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover,
+a:active {
+  background-color: #778894;
 }

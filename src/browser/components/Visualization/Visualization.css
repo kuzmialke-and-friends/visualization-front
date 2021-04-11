@@ -1,2 +1,35 @@
 .visualizationMenu {
+  /* background-color: #292f33; */
+  background-color: none;
+}
+
+.visualizationButton {
+  background-color: #66757f;
+  border: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-variant-caps: all-petite-caps;
+  font-size: 100%;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  display: inline-block;
+  margin: 0px 2px;
+  cursor: pointer;
+}
+
+.visualizationButton:hover {
+  background-color: #778894;
+  color: white;
+}
+
+.visualizationBox {
+  position: relative;
+  background-color: #66757f;
+  border: none;
+  margin: 5rem 40%;
+  padding: 10% 0;
+  width: 20%;
+  box-sizing: border-box;
+  align-self: center;
+  text-align: center;
 }
