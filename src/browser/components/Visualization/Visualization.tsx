@@ -13,12 +13,17 @@ import {
   Config,
   ThunkReducer,
   ThunkAction,
+  VisualizationType,
 } from "../../../types";
 import Spinner from "../Spinner";
+import { Chart } from "./components/Chart";
+import { Unsupported } from "./components/Unsupported";
+import "./Visualization.css";
 
 interface VisualizationProps {
-  type: DatasetType;
+  datasetType: DatasetType;
   dataset?: Dataset<Subject | GhostSubject> | Dataset<JumpSubject> | Dataset<MazeSubject>;
+  visualizationConfig?: Record<string, () => JSX.Element>;
 }
 
 const dispatchMap = {
@@ -27,11 +32,38 @@ const dispatchMap = {
   maze: fetchMazeDaset,
 };
 
-export const Visualization = ({ type, dataset }: VisualizationProps) => {
-  console.log("dataset", dataset);
+interface ButtonProps {
+  type: string;
+  showVisualization: () => void;
+}
+
+const Button = ({ type, showVisualization }: ButtonProps) => (
+  <button onClick={showVisualization} key={type}>
+    {type}
+  </button>
+);
+
+const defaultVisualizationConfig = {
+  chart: Chart,
+};
+
+export const Visualization = ({
+  datasetType,
+  dataset,
+  visualizationConfig = defaultVisualizationConfig,
+}: VisualizationProps) => {
+  const [visualizationType, setVisualizationType] = useState<VisualizationType>();
+
+  const VisualizationComponent = visualizationType ? visualizationConfig[visualizationType] : null;
   return (
     <div>
-      <p>Visualization type: {type}</p>
+      <p>Visualization for dataset: {datasetType}</p>
+      <div className="visualizationMenu">
+        {dataset?.supportedVisualizations.map((type) => (
+          <Button type={type} key={type} showVisualization={() => setVisualizationType(type)} />
+        ))}
+      </div>
+      {VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}
     </div>
   );
 };
@@ -43,7 +75,7 @@ interface ThunkedVisualizationProps extends VisualizationProps {
 }
 
 export const VisualizationWithState = ({
-  type,
+  datasetType,
   fetchState: { fetched, isFetching },
   dispatch,
   config,
@@ -54,26 +86,32 @@ export const VisualizationWithState = ({
   };
 
   useEffect(() => {
-    const dataset = fetched[type];
+    const dataset = fetched[datasetType];
 
     if (!dataset) {
-      fetchDataset(type);
+      fetchDataset(datasetType);
     }
-  }, [type]);
+  }, [datasetType]);
 
   return isFetching ? (
     <Spinner prompt="Fetching..." />
   ) : (
-    <Visualization type={type} {...rest} dataset={fetched[type]} />
+    <Visualization datasetType={datasetType} {...rest} dataset={fetched[datasetType]} />
   );
 };
 
-export const VisualizationWithContext = ({ type, ...rest }: VisualizationProps) => (
+export const VisualizationWithContext = ({ datasetType, ...rest }: VisualizationProps) => (
   <ConfigContext.Consumer>
     {(config) => (
       <FetchThunkContext.Consumer>
         {([fetchState, dispatch]) => (
-          <VisualizationWithState type={type} {...rest} config={config} fetchState={fetchState} dispatch={dispatch} />
+          <VisualizationWithState
+            datasetType={datasetType}
+            {...rest}
+            config={config}
+            fetchState={fetchState}
+            dispatch={dispatch}
+          />
         )}
       </FetchThunkContext.Consumer>
     )}
