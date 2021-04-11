@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 import MainPage from "./components/MainPage";
@@ -13,19 +13,18 @@ interface AppProps {
 }
 
 const App = ({ fetchState }: AppProps) => {
-  // useEffect(() => {
-  //   __WEB__ = true;
-  // });
   const fetchThunk = useThunkReducer(fetchState);
 
   return (
-    <FetchThunkContext.Provider value={fetchThunk}>
-      <Switch>
-        <Route path="/">
-          <MainPage />
-        </Route>
-      </Switch>
-    </FetchThunkContext.Provider>
+    <div className="app">
+      <FetchThunkContext.Provider value={fetchThunk}>
+        <Switch>
+          <Route path="/">
+            <MainPage />
+          </Route>
+        </Switch>
+      </FetchThunkContext.Provider>
+    </div>
   );
 };
 export default App;
