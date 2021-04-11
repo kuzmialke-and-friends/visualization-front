@@ -16,7 +16,7 @@ import {
   VisualizationType,
 } from "../../../types";
 import Spinner from "../Spinner";
-import { Map } from "./components/Map";
+import { Chart } from "./components/Chart";
 import { Unsupported } from "./components/Unsupported";
 import "./Visualization.css";
 
@@ -44,7 +44,7 @@ const Button = ({ type, showVisualization }: ButtonProps) => (
 );
 
 const defaultVisualizationConfig = {
-  map: Map,
+  chart: Chart,
 };
 
 export const Visualization = ({
