@@ -7,7 +7,7 @@ import "./MainPage.css";
 
 export const MainPage = () => (
   <div className="mainPage">
-    <div className="links">
+    <div>
       <Link to="/ghost">Ghost</Link>
       <Link to="/jump">Jump</Link>
       <Link to="/maze">Maze</Link>

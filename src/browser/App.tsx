@@ -16,7 +16,7 @@ const App = ({ fetchState }: AppProps) => {
   const fetchThunk = useThunkReducer(fetchState);
 
   return (
-    <div className="App">
+    <div className="app">
       <FetchThunkContext.Provider value={fetchThunk}>
         <Switch>
           <Route path="/">
