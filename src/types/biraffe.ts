@@ -44,5 +44,5 @@ export type VisualizationType = "graph" | "bar" | "chart";
 
 export interface Dataset<T> {
   subjects: Record<string, T>;
-  supportedVisualization: VisualizationType[];
+  supportedVisualizations: VisualizationType[];
 }

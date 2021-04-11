@@ -17,13 +17,13 @@ export const MainPage = () => (
         <p>Pick a dataset.</p>
       </Route>
       <Route path="/ghost">
-        <Visualization type="ghost" />
+        <Visualization datasetType="ghost" />
       </Route>
       <Route path="/jump">
-        <Visualization type="jump" />
+        <Visualization datasetType="jump" />
       </Route>
       <Route path="/maze">
-        <Visualization type="maze" />
+        <Visualization datasetType="maze" />
       </Route>
       <Route>
         <ErrorPage />
