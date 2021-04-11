@@ -6,8 +6,8 @@ cache:
 
 stages:
   - test
-  - name: deploy
-    if: type = push AND branch = main
+  # - name: deploy
+  #   if: type = push AND branch = main
 
 jobs:
   include:
@@ -15,7 +15,7 @@ jobs:
       script: npm run test
       env:
         - JOB_NAME=tests
-    - stage: deploy
-      script: npm run deploy
-      env:
-        - JOB_NAME=deploy
+    # - stage: deploy
+    #   script: npm run deploy
+    #   env:
+    #     - JOB_NAME=deploy
