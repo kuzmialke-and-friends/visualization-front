@@ -1,9 +1,9 @@
-.visualizationMenu {
+.visualization-menu {
   /* background-color: #292f33; */
   background-color: none;
 }
 
-.visualizationButton {
+.visualization-button {
   background-color: #66757f;
   border: none;
   color: white;
@@ -17,19 +17,31 @@
   cursor: pointer;
 }
 
-.visualizationButton:hover {
+.visualization-button:hover {
   background-color: #778894;
   color: white;
 }
 
-.visualizationBox {
-  position: relative;
-  background-color: #66757f;
+.visualization-component {
+  background-color: #292f33;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 510px;
+  width: 770px;
+  padding: 15px;
   border: none;
-  margin: 5rem 40%;
-  padding: 10% 0;
-  width: 20%;
+}
+
+.visualization-box {
+  background-color: #66757f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 770px;
+  height: 770px;
+  padding: 15px;
+  border: none;
+  margin: 15px 0 0 0;
   box-sizing: border-box;
-  align-self: center;
-  text-align: center;
 }

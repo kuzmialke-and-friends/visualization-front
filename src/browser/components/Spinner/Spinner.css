@@ -2,6 +2,16 @@
   width: 2.5rem;
   height: 2.5rem;
   margin: 1rem auto;
+  justify-content: center;
+}
+
+.center-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 540px;
+  padding: 15px;
+  border: none;
 }
 
 .spinner {

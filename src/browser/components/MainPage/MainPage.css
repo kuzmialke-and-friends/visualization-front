@@ -1,11 +1,21 @@
-.mainPage {
+.main-page {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.mainNavMenu {
+.main-nav-menu {
   background-color: #292f33;
+}
+
+.row-columns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 600px;
+  width: 1170px;
+  padding: 15px;
+  margin: 0 auto;
 }
 
 a:link,
