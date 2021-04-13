@@ -1,3 +1,7 @@
+:root {
+  --visualization-box-size: 770px;
+}
+
 .visualization-menu {
   /* background-color: #292f33; */
   background-color: none;
@@ -19,9 +23,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 770px;
-  height: 770px;
-  padding: 15px;
+  width: var(--visualization-box-size);
+  height: var(--visualization-box-size);
   border: none;
   margin: 15px 0 0 0;
   box-sizing: border-box;

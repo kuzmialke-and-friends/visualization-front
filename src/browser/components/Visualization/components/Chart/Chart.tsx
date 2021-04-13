@@ -1,11 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { scaleLinear, select, Selection, max } from "d3";
+import React, { useEffect } from "react";
+import { scaleLinear, select, max, range, axisLeft, axisBottom } from "d3";
 import { VisualizationProps } from "../../types";
 import { DatasetType, GhostSubject } from "../../../../../types";
 import { Unsupported } from "../Unsupported";
+import "./Chart.css";
+
+const barColors = [
+  "#003f5c",
+  "#ffa600",
+  "#2f4b7c",
+  "#ff7c43",
+  "#665191",
+  "#f95d6a",
+  "#a05195",
+  "#d45087",
+  "#00876c",
+  "#f1d4d4",
+  "#439981",
+  "#f0b8b8",
+  "#6aaa96",
+  "#ec9c9d",
+  "#8cbcac",
+  "#e67f83",
+  "#aecdc2",
+  "#de6069",
+  "#cfdfd9",
+  "#d43d51",
+  "#f1f1f1",
+];
 
 const DeathCountChart = ({ subjects }: VisualizationProps<GhostSubject>) => {
-  const [svg, setSvg] = useState<Selection<SVGSVGElement, unknown, HTMLElement, any> | undefined>();
   const chartClassName = "death-count-chart";
 
   useEffect(() => {
@@ -26,41 +50,73 @@ const DeathCountChart = ({ subjects }: VisualizationProps<GhostSubject>) => {
 
     const values = Object.values(deathCountPerPersonalityType);
     const keys = Object.keys(deathCountPerPersonalityType);
-    const height = 300;
+    const width = 750;
+    const height = 400;
+    const margin = 25;
+    const padding = 25;
+    const barWidth = 25;
 
-    const x = scaleLinear().domain([0, values.length]).range([0, 345]);
+    console.log(values);
+    console.log(max(values));
+
+    console.log(range(keys.length));
+
+    const x = scaleLinear()
+      .domain([0, values.length])
+      .range([2 * margin, width - margin]);
+
+    x.tickFormat(undefined);
+
     const y = scaleLinear()
       .domain([0, max(values) || 50])
-      .range([0, 345]);
+      .range([height - margin, margin]);
 
     //   const histogram = bin().domain(x.domain());
 
-    const newSvg = select(`.${"death-count-chart"}`).append("svg").attr("width", 700).attr("height", height);
+    const newSvg = select(`.${"death-count-chart"}`).append("svg").attr("width", width).attr("height", height);
 
     newSvg
       .selectAll("rect")
       .data(values)
       .enter()
       .append("rect")
-      .attr("x", (_, i) => x(i))
-      .attr("y", (d) => height - 10 * d)
-      .attr("width", 25)
-      .attr("fill", "green")
-      .attr("height", (d) => y(d));
+      .attr("x", (_, index) => x(index))
+      .attr("y", (value) => y(value))
+      .attr("width", barWidth)
+      .attr("fill", (_, index) => `${barColors[index] || "green"}`)
+      .attr("height", (value) => height - margin - y(value));
 
     newSvg
       .selectAll("text")
       .data(values)
       .enter()
       .append("text")
-      .text((d) => d)
-      .attr("x", (_, i) => i * 70)
-      .attr("y", (d) => height - 10 * d - 3);
+      .style("color", "white")
+      .text((value) => value)
+      .attr("x", (_, index) => x(index) + barWidth / 2)
+      .attr("y", (value) => y(value) - 5);
 
-    setSvg(newSvg);
-  }, []);
+    newSvg
+      .append("g")
+      .attr("margin", padding)
+      .transition()
+      .duration(1000)
+      .call(axisLeft(y))
+      .attr("transform", `translate(${margin})`);
 
-  return <div className={chartClassName}></div>;
+    const xAxis = axisBottom(x);
+    xAxis.ticks(keys.length);
+    xAxis.tickFormat((_, index) => keys[index]);
+
+    newSvg
+      .append("g")
+      .transition()
+      .duration(1000)
+      .call(xAxis)
+      .attr("transform", `translate(0, ${height - margin})`);
+  }, [subjects]);
+
+  return <div className={`chart ${chartClassName}`}></div>;
 };
 
 const componentMap: Record<DatasetType, (props: VisualizationProps<any>) => JSX.Element> = {
