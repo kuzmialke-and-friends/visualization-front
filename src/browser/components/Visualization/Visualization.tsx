@@ -38,7 +38,7 @@ interface ButtonProps {
 }
 
 const Button = ({ type, showVisualization }: ButtonProps) => (
-  <button className="visualizationButton" onClick={showVisualization} key={type}>
+  <button className="visualization-button" onClick={showVisualization} key={type}>
     {type}
   </button>
 );
@@ -56,15 +56,15 @@ export const Visualization = ({
 
   const VisualizationComponent = visualizationType ? visualizationConfig[visualizationType] : null;
   return (
-    <div>
+    <>
       <p>Visualization for dataset: {datasetType}</p>
-      <div className="visualizationMenu">
+      <div className="visualization-menu">
         {dataset?.supportedVisualizations.map((type) => (
           <Button type={type} key={type} showVisualization={() => setVisualizationType(type)} />
         ))}
       </div>
-      <div className="visualizationBox">{VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}</div>
-    </div>
+      <div className="visualization-box">{VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}</div>
+    </>
   );
 };
 
@@ -93,10 +93,14 @@ export const VisualizationWithState = ({
     }
   }, [datasetType]);
 
-  return isFetching ? (
-    <Spinner prompt="Fetching..." />
-  ) : (
-    <Visualization datasetType={datasetType} {...rest} dataset={fetched[datasetType]} />
+  return (
+    <div className="visualization-component">
+      {isFetching ? (
+        <Spinner prompt="Fetching..." />
+      ) : (
+        <Visualization datasetType={datasetType} {...rest} dataset={fetched[datasetType]} />
+      )}
+    </div>
   );
 };
 

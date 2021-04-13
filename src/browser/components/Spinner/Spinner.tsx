@@ -13,7 +13,7 @@ const spinTransition = {
 };
 
 export const Spinner = ({ prompt }: SpinnerProps) => (
-  <div>
+  <div className="center-spinner">
     <div className="container">
       <motion.span className="spinner" animate={{ rotate: 360 }} transition={spinTransition} />
     </div>
