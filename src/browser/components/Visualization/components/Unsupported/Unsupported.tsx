@@ -1,3 +1,13 @@
 import React from "react";
 
-export const Unsupported = () => <div>Visualization is not supported.</div>;
+interface UnsupportedProps {
+  type?: string;
+}
+
+export const Unsupported = ({ type }: UnsupportedProps) => {
+  const prompt = type
+    ? `Visualization ${type} is not supported.`
+    : "There are no supported visualizations for this dataset.";
+
+  return <div> {prompt}</div>;
+};

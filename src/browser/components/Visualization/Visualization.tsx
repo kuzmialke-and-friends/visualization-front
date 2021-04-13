@@ -2,29 +2,17 @@ import React, { useEffect, useState } from "react";
 import ConfigContext from "../../../components/ConfigContext";
 import FetchThunkContext from "../../../components/FetchThunkContext";
 import { fetchGhostDaset, fetchJumpDaset, fetchMazeDaset } from "../../../server/fetch";
-import {
-  Dataset,
-  GhostSubject,
-  JumpSubject,
-  MazeSubject,
-  Subject,
-  DatasetType,
-  FetchState,
-  Config,
-  ThunkReducer,
-  ThunkAction,
-  VisualizationType,
-} from "../../../types";
+import { DatasetType, VisualizationType } from "../../../types";
 import Spinner from "../Spinner";
+import { Button } from "./components/Button";
 import { Chart } from "./components/Chart";
 import { Unsupported } from "./components/Unsupported";
+import {
+  DatasetVisualizationProps,
+  DatasetVisualizationWithFetchProps,
+  UnfetchedDatasetVisualizationProps,
+} from "./types";
 import "./Visualization.css";
-
-interface VisualizationProps {
-  datasetType: DatasetType;
-  dataset?: Dataset<Subject | GhostSubject> | Dataset<JumpSubject> | Dataset<MazeSubject>;
-  visualizationConfig?: Record<string, () => JSX.Element>;
-}
 
 const dispatchMap = {
   ghost: fetchGhostDaset,
@@ -32,55 +20,45 @@ const dispatchMap = {
   maze: fetchMazeDaset,
 };
 
-interface ButtonProps {
-  type: string;
-  showVisualization: () => void;
-}
-
-const Button = ({ type, showVisualization }: ButtonProps) => (
-  <button className="visualization-button" onClick={showVisualization} key={type}>
-    {type}
-  </button>
-);
-
 const defaultVisualizationConfig = {
   chart: Chart,
 };
 
-export const Visualization = ({
+export const DatasetVisualization = ({
   datasetType,
-  dataset,
+  dataset: { supportedVisualizations, subjects },
   visualizationConfig = defaultVisualizationConfig,
-}: VisualizationProps) => {
-  const [visualizationType, setVisualizationType] = useState<VisualizationType>();
+}: DatasetVisualizationProps) => {
+  const [visualizationType, setVisualizationType] = useState<VisualizationType | undefined>(supportedVisualizations[0]);
 
   const VisualizationComponent = visualizationType ? visualizationConfig[visualizationType] : null;
   return (
     <>
       <p>Visualization for dataset: {datasetType}</p>
       <div className="visualization-menu">
-        {dataset?.supportedVisualizations.map((type) => (
+        {supportedVisualizations.map((type) => (
           <Button type={type} key={type} showVisualization={() => setVisualizationType(type)} />
         ))}
       </div>
-      <div className="visualization-box">{VisualizationComponent ? <VisualizationComponent /> : <Unsupported />}</div>
+
+      <div className="visualization-box">
+        {VisualizationComponent ? (
+          <VisualizationComponent subjects={subjects} type={datasetType} />
+        ) : (
+          <Unsupported type={visualizationType} />
+        )}
+      </div>
     </>
   );
 };
 
-interface ThunkedVisualizationProps extends VisualizationProps {
-  fetchState: FetchState;
-  dispatch: (action: ThunkAction<FetchState>) => void;
-  config?: Config;
-}
-
-export const VisualizationWithState = ({
+export const DatasetVisualizationWithFetch = ({
   datasetType,
   fetchState: { fetched, isFetching },
   dispatch,
   config,
   ...rest
-}: ThunkedVisualizationProps) => {
+}: DatasetVisualizationWithFetchProps) => {
   const fetchDataset = async (type: DatasetType) => {
     await dispatch(dispatchMap[type](config?.app.BACKEND_URL));
   };
@@ -95,21 +73,21 @@ export const VisualizationWithState = ({
 
   return (
     <div className="visualization-component">
-      {isFetching ? (
+      {isFetching || !fetched[datasetType] ? (
         <Spinner prompt="Fetching..." />
       ) : (
-        <Visualization datasetType={datasetType} {...rest} dataset={fetched[datasetType]} />
+        <DatasetVisualization datasetType={datasetType} {...rest} dataset={fetched[datasetType]} />
       )}
     </div>
   );
 };
 
-export const VisualizationWithContext = ({ datasetType, ...rest }: VisualizationProps) => (
+export const VisualizationWithContext = ({ datasetType, ...rest }: UnfetchedDatasetVisualizationProps) => (
   <ConfigContext.Consumer>
     {(config) => (
       <FetchThunkContext.Consumer>
         {([fetchState, dispatch]) => (
-          <VisualizationWithState
+          <DatasetVisualizationWithFetch
             datasetType={datasetType}
             {...rest}
             config={config}
