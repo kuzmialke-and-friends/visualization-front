@@ -12,7 +12,7 @@ const fetchDataset = <T extends Subject>(datasetName: string, endpoint?: string)
     return state;
   }
   await dispatch(fetchStarted());
-  const response = await fetch(`${endpoint}/datasets/${datasetName}`);
+  const response = await fetch(`${endpoint}/datasets/${datasetName}?limit=103`);
 
   try {
     return {
