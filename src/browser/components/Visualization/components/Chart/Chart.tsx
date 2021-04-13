@@ -87,6 +87,10 @@ const DeathCountChart = ({ subjects }: VisualizationProps<GhostSubject>) => {
       .attr("transform", `translate(0, ${height - margin})`)
       .selectAll("text")
       .attr("transform", "rotate(-30)");
+
+    return () => {
+      newSvg.remove();
+    };
   }, [subjects]);
 
   return <div className={`chart ${chartClassName}`}></div>;

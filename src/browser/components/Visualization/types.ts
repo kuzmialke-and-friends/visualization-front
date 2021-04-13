@@ -25,6 +25,6 @@ export type UnfetchedDatasetVisualizationProps = Omit<DatasetVisualizationProps,
 
 export interface DatasetVisualizationWithFetchProps extends UnfetchedDatasetVisualizationProps {
   fetchState: FetchState;
-  dispatch: (action: ThunkAction<FetchState>) => void;
+  dispatch: (action: ThunkAction<FetchState>) => Promise<void>;
   config?: Config;
 }
