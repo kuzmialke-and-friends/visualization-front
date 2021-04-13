@@ -2,9 +2,10 @@
 
 [![Build Status](https://travis-ci.com/kuzmialke-and-friends/visualization-front.svg?branch=main)](https://travis-ci.com/kuzmialke-and-friends/visualization-front)
 
-[Youtube Preview](https://youtu.be/TgPR_HpLWsI)
+[Overly Dramatic Youtube Preview](https://youtu.be/TgPR_HpLWsI)
 Since the app is not deployed to production the V1 can be checked out as a video preview.
 
+_Note_: I didn't mean to record sound, but I guess the preview is overly dramatic now.
 _Note_: app takes long time to fetch as it's fairly unoptimized
 
 ## Table of Contents
