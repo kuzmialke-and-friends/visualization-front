@@ -20,7 +20,7 @@ Visualization Front is a React app that uses D3 to visualize data. It uses [Visu
 
 // TODO: define concepts in more detail
 
-It can be previewed at [this link](https://6qqnw5wwmf.execute-api.us-east-1.amazonaws.com/dev/). It might be slow at start as Heroku services warm up.
+It can be previewed as a Lambda, but it is not currently deployed as such. In special cases we can deploy it for a short while if there is interest to preview. It might be slow at start as Heroku services warm up.
 
 It was created thanks to the [Serverless React Boilerplate](https://github.com/arabold/serverless-react-boilerplate).
 
