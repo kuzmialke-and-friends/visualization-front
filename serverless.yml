@@ -54,7 +54,7 @@ functions:
 
 custom:
   serverless-offline:
-    httpPort: 4000
+    httpPort: ${env:PORT}
   distBucketUrl:
     us-east-1:
       # us-east-1 uses a different URL format than the other regions
